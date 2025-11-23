@@ -10,6 +10,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.entity.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.Entity;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 
 /* java/misc */
@@ -28,14 +30,95 @@ public class BlockEntityManager {
             ChestBlock.class, EnderChestBlock.class, ShulkerBoxBlock.class,
             BellBlock.class, DecoratedPotBlock.class, BedBlock.class,
             SignBlock.class, HangingSignBlock.class,
-            WallSignBlock.class, WallHangingSignBlock.class
+            WallSignBlock.class, WallHangingSignBlock.class,
+            // Rails
+            RailBlock.class,
+            PoweredRailBlock.class,
+            DetectorRailBlock.class,
+            // Note: ActivatorRailBlock might not exist as a separate class in this version
+            // Fences
+            FenceBlock.class,
+            // Sculk sensor
+            SculkSensorBlock.class,
+            // Campfires
+            CampfireBlock.class,
+            // Anvils
+            AnvilBlock.class,
+            // Furnaces
+            SmokerBlock.class,
+            BlastFurnaceBlock.class,
+            FurnaceBlock.class,
+            // Pressure plates
+            PressurePlateBlock.class,
+            WeightedPressurePlateBlock.class,
+            // Cauldron
+            CauldronBlock.class,
+            // Hopper
+            HopperBlock.class,
+            // Observer
+            ObserverBlock.class,
+            // Lever (leveler)
+            LeverBlock.class,
+            // Comparator (leveler)
+            ComparatorBlock.class,
+            // Buttons
+            ButtonBlock.class,
+            // Trapdoors
+            TrapdoorBlock.class
     );
 
     public static boolean chestAnims, shulkerAnims, bellAnims, potAnims, signText, masterOptimize;
     public static int smoothness;
 
     public static boolean isSupportedBlock(Block block) {
-        return block != null && SUPPORTED_BLOCKS.contains(block.getClass());
+        if (block == null) return false;
+        
+        // Check by class first (faster)
+        if (SUPPORTED_BLOCKS.contains(block.getClass())) {
+            // Check config for blocks that have config options
+            if (block instanceof RailBlock || block instanceof PoweredRailBlock || block instanceof DetectorRailBlock) {
+                return ConfigManager.CONFIG.optimize_rails;
+            }
+            if (block instanceof FenceBlock) {
+                return ConfigManager.CONFIG.optimize_fences;
+            }
+            if (block instanceof AnvilBlock) {
+                return ConfigManager.CONFIG.optimize_anvils;
+            }
+            if (block instanceof PressurePlateBlock || block instanceof WeightedPressurePlateBlock) {
+                return ConfigManager.CONFIG.optimize_pressure_plates;
+            }
+            if (block instanceof CauldronBlock) {
+                return ConfigManager.CONFIG.optimize_cauldrons;
+            }
+            if (block instanceof ObserverBlock) {
+                return ConfigManager.CONFIG.optimize_observers;
+            }
+            if (block instanceof LeverBlock) {
+                return ConfigManager.CONFIG.optimize_levers;
+            }
+            if (block instanceof ButtonBlock) {
+                return ConfigManager.CONFIG.optimize_buttons;
+            }
+            if (block instanceof TrapdoorBlock) {
+                return ConfigManager.CONFIG.optimize_trapdoors;
+            }
+            // For other blocks without specific config, return true
+            return true;
+        }
+        
+        // Special case: activator rail might not have a separate class
+        // Check by block identifier
+        try {
+            Identifier blockId = Registries.BLOCK.getId(block);
+            if (blockId != null && blockId.getPath().equals("activator_rail")) {
+                return ConfigManager.CONFIG.optimize_rails;
+            }
+        } catch (Exception e) {
+            // If registry lookup fails, just return false
+        }
+        
+        return false;
     }
 
     public static boolean isSupportedEntity(BlockEntity blockEntity) {

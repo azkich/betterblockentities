@@ -25,12 +25,20 @@ public class ConfigScreen extends GameOptionsScreen {
             bedOpt,
             bellOpt,
             potOpt,
-            bannerOpt,
+            railOpt,
+            fenceOpt,
             campfireOpt,
             furnaceOpt,
             hopperOpt,
             sculkSensorOpt,
             comparatorOpt,
+            anvilOpt,
+            pressurePlateOpt,
+            cauldronOpt,
+            observerOpt,
+            leverOpt,
+            buttonOpt,
+            trapdoorOpt,
             chestAnimOpt,
             signTextOpt,
             shulkerAnimOpt,
@@ -57,12 +65,20 @@ public class ConfigScreen extends GameOptionsScreen {
         bedOpt = optimizeBeds();
         bellOpt = optimizeBells();
         potOpt = optimizeDecoratedPots();
-        bannerOpt = optimizeBanners();
+        railOpt = optimizeRails();
+        fenceOpt = optimizeFences();
         campfireOpt = optimizeCampfires();
         furnaceOpt = optimizeFurnaces();
         hopperOpt = optimizeHoppers();
         sculkSensorOpt = optimizeSculkSensors();
         comparatorOpt = optimizeComparators();
+        anvilOpt = optimizeAnvils();
+        pressurePlateOpt = optimizePressurePlates();
+        cauldronOpt = optimizeCauldrons();
+        observerOpt = optimizeObservers();
+        leverOpt = optimizeLevers();
+        buttonOpt = optimizeButtons();
+        trapdoorOpt = optimizeTrapdoors();
         updateType = updateType();
         smoothness = extraRenderPasses();
         signDistance = signTextRenderDistance();
@@ -81,12 +97,20 @@ public class ConfigScreen extends GameOptionsScreen {
                 bellOpt, bellAnimOpt,
                 potOpt, potAnimOpt,
                 bedOpt,
-                bannerOpt,
+                railOpt,
+                fenceOpt,
                 campfireOpt,
                 furnaceOpt,
                 hopperOpt,
                 sculkSensorOpt,
-                comparatorOpt
+                comparatorOpt,
+                anvilOpt,
+                pressurePlateOpt,
+                cauldronOpt,
+                observerOpt,
+                leverOpt,
+                buttonOpt,
+                trapdoorOpt
         );
         this.body.addSingleOptionEntry(updateType);
         this.body.addSingleOptionEntry(smoothness);
@@ -232,14 +256,25 @@ public class ConfigScreen extends GameOptionsScreen {
         );
     }
 
-    private SimpleOption<Boolean> optimizeBanners() {
+    private SimpleOption<Boolean> optimizeRails() {
         return new SimpleOption<>(
-                "Optimize Banners",
-                value -> Tooltip.of(Text.of("§7Turns off all Banner optimizations")),
+                "Optimize Rails",
+                value -> Tooltip.of(Text.of("§7Turns off all Rail optimizations (Rail, Powered Rail, Detector Rail, Activator Rail)")),
                 (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
                 SimpleOption.BOOLEAN,
-                ConfigManager.CONFIG.optimize_banners,
-                v -> ConfigManager.CONFIG.optimize_banners = v
+                ConfigManager.CONFIG.optimize_rails,
+                v -> ConfigManager.CONFIG.optimize_rails = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeFences() {
+        return new SimpleOption<>(
+                "Optimize Fences",
+                value -> Tooltip.of(Text.of("§7Turns off all Fence optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_fences,
+                v -> ConfigManager.CONFIG.optimize_fences = v
         );
     }
 
@@ -298,7 +333,83 @@ public class ConfigScreen extends GameOptionsScreen {
         );
     }
 
-    
+    private SimpleOption<Boolean> optimizeAnvils() {
+        return new SimpleOption<>(
+                "Optimize Anvils",
+                value -> Tooltip.of(Text.of("§7Turns off all Anvil optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_anvils,
+                v -> ConfigManager.CONFIG.optimize_anvils = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizePressurePlates() {
+        return new SimpleOption<>(
+                "Optimize Pressure Plates",
+                value -> Tooltip.of(Text.of("§7Turns off all Pressure Plate optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_pressure_plates,
+                v -> ConfigManager.CONFIG.optimize_pressure_plates = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeCauldrons() {
+        return new SimpleOption<>(
+                "Optimize Cauldrons",
+                value -> Tooltip.of(Text.of("§7Turns off all Cauldron optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_cauldrons,
+                v -> ConfigManager.CONFIG.optimize_cauldrons = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeObservers() {
+        return new SimpleOption<>(
+                "Optimize Observers",
+                value -> Tooltip.of(Text.of("§7Turns off all Observer optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_observers,
+                v -> ConfigManager.CONFIG.optimize_observers = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeLevers() {
+        return new SimpleOption<>(
+                "Optimize Levers",
+                value -> Tooltip.of(Text.of("§7Turns off all Lever optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_levers,
+                v -> ConfigManager.CONFIG.optimize_levers = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeButtons() {
+        return new SimpleOption<>(
+                "Optimize Buttons",
+                value -> Tooltip.of(Text.of("§7Turns off all Button optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_buttons,
+                v -> ConfigManager.CONFIG.optimize_buttons = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeTrapdoors() {
+        return new SimpleOption<>(
+                "Optimize Trapdoors",
+                value -> Tooltip.of(Text.of("§7Turns off all Trapdoor optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_trapdoors,
+                v -> ConfigManager.CONFIG.optimize_trapdoors = v
+        );
+    }
+
     private SimpleOption<Integer> signTextRenderDistance() {
         return new SimpleOption<>(
                 "Sign Text Render Distance",
@@ -354,12 +465,20 @@ public class ConfigScreen extends GameOptionsScreen {
         setOptionActive(bedOpt, enabled);
         setOptionActive(bellOpt, enabled);
         setOptionActive(potOpt, enabled);
-        setOptionActive(bannerOpt, enabled);
+        setOptionActive(railOpt, enabled);
+        setOptionActive(fenceOpt, enabled);
         setOptionActive(campfireOpt, enabled);
         setOptionActive(furnaceOpt, enabled);
         setOptionActive(hopperOpt, enabled);
         setOptionActive(sculkSensorOpt, enabled);
         setOptionActive(comparatorOpt, enabled);
+        setOptionActive(anvilOpt, enabled);
+        setOptionActive(pressurePlateOpt, enabled);
+        setOptionActive(cauldronOpt, enabled);
+        setOptionActive(observerOpt, enabled);
+        setOptionActive(leverOpt, enabled);
+        setOptionActive(buttonOpt, enabled);
+        setOptionActive(trapdoorOpt, enabled);
 
         setOptionActive(chestAnimOpt, enabled && chestOpt.getValue());
         setOptionActive(signTextOpt, enabled && signOpt.getValue());

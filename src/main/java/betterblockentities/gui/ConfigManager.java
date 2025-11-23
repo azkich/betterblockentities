@@ -65,9 +65,9 @@ public class ConfigManager
             supported.add(SignBlockEntity.class);
             supported.add(HangingSignBlockEntity.class);
         }
-        if (ConfigManager.CONFIG.optimize_banners) {
-            supported.add(BannerBlockEntity.class);
-        }
+        // Note: Item frames are entities, not block entities, so they can't be optimized by this mod
+        // The ItemFrameBlock and GlowItemFrameBlock classes are kept in SUPPORTED_BLOCKS
+        // for blocks that might hold item frames, but there are no block entities for them
         if (ConfigManager.CONFIG.optimize_campfires) {
             supported.add(CampfireBlockEntity.class);
         }
