@@ -65,6 +65,26 @@ public class ConfigManager
             supported.add(SignBlockEntity.class);
             supported.add(HangingSignBlockEntity.class);
         }
+        if (ConfigManager.CONFIG.optimize_banners) {
+            supported.add(BannerBlockEntity.class);
+        }
+        if (ConfigManager.CONFIG.optimize_campfires) {
+            supported.add(CampfireBlockEntity.class);
+        }
+        if (ConfigManager.CONFIG.optimize_furnaces) {
+            supported.add(FurnaceBlockEntity.class);
+            supported.add(SmokerBlockEntity.class);
+            supported.add(BlastFurnaceBlockEntity.class);
+        }
+        if (ConfigManager.CONFIG.optimize_hoppers) {
+            supported.add(HopperBlockEntity.class);
+        }
+        if (ConfigManager.CONFIG.optimize_sculk_sensors) {
+            supported.add(SculkSensorBlockEntity.class);
+        }
+        if (ConfigManager.CONFIG.optimize_comparators) {
+            supported.add(ComparatorBlockEntity.class);
+        }
         BlockEntityManager.SUPPORTED_TYPES = Collections.unmodifiableSet(supported);
 
         /* set animation/rendering config values in BlockEntityManager */
