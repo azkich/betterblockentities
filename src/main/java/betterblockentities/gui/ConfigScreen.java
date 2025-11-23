@@ -25,6 +25,12 @@ public class ConfigScreen extends GameOptionsScreen {
             bedOpt,
             bellOpt,
             potOpt,
+            bannerOpt,
+            campfireOpt,
+            furnaceOpt,
+            hopperOpt,
+            sculkSensorOpt,
+            comparatorOpt,
             chestAnimOpt,
             signTextOpt,
             shulkerAnimOpt,
@@ -51,6 +57,12 @@ public class ConfigScreen extends GameOptionsScreen {
         bedOpt = optimizeBeds();
         bellOpt = optimizeBells();
         potOpt = optimizeDecoratedPots();
+        bannerOpt = optimizeBanners();
+        campfireOpt = optimizeCampfires();
+        furnaceOpt = optimizeFurnaces();
+        hopperOpt = optimizeHoppers();
+        sculkSensorOpt = optimizeSculkSensors();
+        comparatorOpt = optimizeComparators();
         updateType = updateType();
         smoothness = extraRenderPasses();
         signDistance = signTextRenderDistance();
@@ -68,7 +80,13 @@ public class ConfigScreen extends GameOptionsScreen {
                 shulkerOpt, shulkerAnimOpt,
                 bellOpt, bellAnimOpt,
                 potOpt, potAnimOpt,
-                bedOpt
+                bedOpt,
+                bannerOpt,
+                campfireOpt,
+                furnaceOpt,
+                hopperOpt,
+                sculkSensorOpt,
+                comparatorOpt
         );
         this.body.addSingleOptionEntry(updateType);
         this.body.addSingleOptionEntry(smoothness);
@@ -214,6 +232,73 @@ public class ConfigScreen extends GameOptionsScreen {
         );
     }
 
+    private SimpleOption<Boolean> optimizeBanners() {
+        return new SimpleOption<>(
+                "Optimize Banners",
+                value -> Tooltip.of(Text.of("§7Turns off all Banner optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_banners,
+                v -> ConfigManager.CONFIG.optimize_banners = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeCampfires() {
+        return new SimpleOption<>(
+                "Optimize Campfires",
+                value -> Tooltip.of(Text.of("§7Turns off all Campfire optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_campfires,
+                v -> ConfigManager.CONFIG.optimize_campfires = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeFurnaces() {
+        return new SimpleOption<>(
+                "Optimize Furnaces",
+                value -> Tooltip.of(Text.of("§7Turns off all Furnace optimizations (Furnace, Smoker, Blast Furnace)")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_furnaces,
+                v -> ConfigManager.CONFIG.optimize_furnaces = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeHoppers() {
+        return new SimpleOption<>(
+                "Optimize Hoppers",
+                value -> Tooltip.of(Text.of("§7Turns off all Hopper optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_hoppers,
+                v -> ConfigManager.CONFIG.optimize_hoppers = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeSculkSensors() {
+        return new SimpleOption<>(
+                "Optimize Sculk Sensors",
+                value -> Tooltip.of(Text.of("§7Turns off all Sculk Sensor optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_sculk_sensors,
+                v -> ConfigManager.CONFIG.optimize_sculk_sensors = v
+        );
+    }
+
+    private SimpleOption<Boolean> optimizeComparators() {
+        return new SimpleOption<>(
+                "Optimize Comparators",
+                value -> Tooltip.of(Text.of("§7Turns off all Comparator optimizations")),
+                (text, value) -> value ? Text.of("§aON") : Text.of("§cOFF"),
+                SimpleOption.BOOLEAN,
+                ConfigManager.CONFIG.optimize_comparators,
+                v -> ConfigManager.CONFIG.optimize_comparators = v
+        );
+    }
+
+    
     private SimpleOption<Integer> signTextRenderDistance() {
         return new SimpleOption<>(
                 "Sign Text Render Distance",
@@ -269,6 +354,12 @@ public class ConfigScreen extends GameOptionsScreen {
         setOptionActive(bedOpt, enabled);
         setOptionActive(bellOpt, enabled);
         setOptionActive(potOpt, enabled);
+        setOptionActive(bannerOpt, enabled);
+        setOptionActive(campfireOpt, enabled);
+        setOptionActive(furnaceOpt, enabled);
+        setOptionActive(hopperOpt, enabled);
+        setOptionActive(sculkSensorOpt, enabled);
+        setOptionActive(comparatorOpt, enabled);
 
         setOptionActive(chestAnimOpt, enabled && chestOpt.getValue());
         setOptionActive(signTextOpt, enabled && signOpt.getValue());
